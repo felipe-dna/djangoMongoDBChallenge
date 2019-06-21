@@ -1,8 +1,12 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .jumbotron {
     padding-top: 3rem;
     padding-bottom: 3rem;
     margin-bottom: 0;
-    background-color: #fff;
+    background-color: #d2d6de;
 }
 
 @media (min-width: 768px) {
@@ -18,10 +22,6 @@
 
 .jumbotron-heading {
     font-weight: 300;
-}
-
-.jumbotron .container {
-    max-width: 40rem;
 }
 
 footer {
