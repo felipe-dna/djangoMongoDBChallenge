@@ -43,6 +43,22 @@ class WatchVideoView(DetailView):
 
 
 # + ------------------------------------------------------------------------- +
+class ThemeDetailView(DetailView):
+    model = Theme
+    template_name = 'app/theme.html'
+    context_object_name = 'theme'
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["video_list"] = Video.objects.filter(
+                                    theme__id=context['theme'].id) 
+        return context
+    
+# + ------------------------------------------------------------------------- +
+
+
+# + ------------------------------------------------------------------------- +
 @require_POST
 def uploadView(request):
     form = VideoUploadForm(request.POST, request.FILES)
@@ -57,7 +73,6 @@ def uploadView(request):
 
 
 # + ------------------------------------------------------------------------- +
-@require_POST
 def thumbUp(request, pk):
     video = Video.objects.filter(id=pk).first()
     video.thumbs_up += 1
@@ -72,7 +87,6 @@ def thumbUp(request, pk):
 
 
 # + ------------------------------------------------------------------------- +
-@require_POST
 def thumbDown(request, pk):
     video = Video.objects.filter(id=pk).first()
     video.thumbs_down += 1
