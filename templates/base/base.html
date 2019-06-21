@@ -1,0 +1,95 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    
+    <!-- header-->
+    {% include './header.html' %}
+    
+    <main role="main">
+        {% if messages %}
+        <section class="col-md-12" style="margin-top: 10px;">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">New Video</h1><br>
+
+                <!-- Form -->
+                <form method="post" action="{% url 'app:upload' %}" class="needs-validation" enctype="multipart/form-data" >
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col">
+                            {% render_field form.name class="form-control" placeholder="Enter the video title" required="True" %}
+                        </div>
+                        <div class="col custom-file">
+                            {% render_field form.file class="custom-file-input" accept="video/*" required="True" %}
+                            <label id="label_file" for="id_file" class="custom-file-label">Choose File...</label>
+                            <div class="invalid-feedback">Ivalida feedback</div>
+                            {% if form.errors.file %}
+                                {% for error in form.errors.file %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            {% render_field form.theme class="form-control" required="True" %}
+                        </div>
+                        <div class="col"><button type="submit" class="btn btn-block btn-primary">upload</button></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Back to top</a>
+            </p>
+            <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+            <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="/docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.querySelector("#id_file").addEventListener('change', e => {
+            
+            // Showing the file name
+            const fileName = e.target.files.item(0).name;
+            document.querySelector("#label_file").innerHTML = fileName;
+
+            // if the name field is empty, it receives the file name by default
+            const videoName = document.querySelector("#id_name").value;
+            if (videoName == "") {
+                document.querySelector("#id_name").value = fileName;
+            };
+        })
+    </script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
