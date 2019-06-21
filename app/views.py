@@ -7,7 +7,7 @@ from django.shortcuts import reverse
 from django.contrib import messages
 
 from .models import Video, Theme
-from.forms import VideoUploadForm
+from.forms import VideoUploadForm, ThemeForm
 
 # views
 
@@ -43,6 +43,21 @@ class WatchVideoView(DetailView):
 
 
 # + ------------------------------------------------------------------------- +
+class ThemeListView(ListView):
+    model = Theme
+    template_name = 'app/theme-list.html'
+    context_object_name = 'themes'
+    queryset = Theme.objects.all().order_by('-score')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = ThemeForm()
+        return context
+
+# + ------------------------------------------------------------------------- +
+
+
+# + ------------------------------------------------------------------------- +
 class ThemeDetailView(DetailView):
     model = Theme
     template_name = 'app/theme.html'
@@ -71,6 +86,20 @@ def uploadView(request):
     return HttpResponseRedirect(reverse('app:home'))
 # + ------------------------------------------------------------------------- +
 
+# + ------------------------------------------------------------------------- +
+@require_POST
+def createThemeView(request):
+    form = ThemeForm(request.POST)
+    
+    if form.is_valid():
+        form.save()
+
+        message = "New theme registred successfully!"
+        messages.add_message(request, messages.SUCCESS, message)
+    
+    return HttpResponseRedirect(reverse('app:themes'))
+# + ------------------------------------------------------------------------- +
+
 
 # + ------------------------------------------------------------------------- +
 def thumbUp(request, pk):
@@ -82,7 +111,7 @@ def thumbUp(request, pk):
     message = "+1 thumbs up on {}".format(video.name)
     messages.add_message(request, messages.SUCCESS, message)
 
-    return HttpResponseRedirect(reverse('app:home'))
+    return HttpResponseRedirect(reverse('app:watch', kwargs={'pk': video.id}))
 # + ------------------------------------------------------------------------- +
 
 
@@ -96,5 +125,5 @@ def thumbDown(request, pk):
     message = "+1 thumbs down on {}".format(video.name)
     messages.add_message(request, messages.WARNING, message)
 
-    return HttpResponseRedirect(reverse('app:home'))
+    return HttpResponseRedirect(reverse('app:watch', kwargs={'pk': video.id}))
 # + ------------------------------------------------------------------------- +

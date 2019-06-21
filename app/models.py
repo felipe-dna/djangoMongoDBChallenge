@@ -72,6 +72,4 @@ def like_and_unlike(sender, instance, created, **kwargs):
         theme.thumbs_up = thumbs_up
         theme.thumbs_down = thumbs_down
         theme.save()
-
-        print("pronto!")
 # + ------------------------------------------------------------------------- +

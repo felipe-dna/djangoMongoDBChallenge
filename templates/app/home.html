@@ -19,7 +19,7 @@
                 <div class="col custom-file">
                     {% render_field form.file class="custom-file-input" accept="video/*" required="True" %}
                     <label id="label_file" for="id_file" class="custom-file-label">Choose File...</label>
-                    <div class="invalid-feedback">{{ error }}</div>
+                    <small class="form-text text-muted">Select your video file.</small>
 
                     {% comment %} video file errors {% endcomment %}
                     {% if form.errors.file %}
@@ -32,11 +32,26 @@
                 <!-- video name -->
                 <div class="col">
                     {% render_field form.name class="form-control" placeholder="Enter the video title" required="True" %}
+                    <small class="form-text text-muted">Enter the title of your video.</small>
+                    
+                    {% comment %} video file errors {% endcomment %}
+                    {% if form.errors.name %}
+                        {% for error in form.errors.file %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <!-- video theme-->
                 <div class="col">
                     {% render_field form.theme class="form-control" required="True" %}
+                    <small class="form-text text-muted">Or click <a href="{% url 'app:themes' %}">here</a> to create a new theme.</small>
+                    {% comment %} video file errors {% endcomment %}
+                    {% if form.errors.theme %}
+                        {% for error in form.errors.file %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <div class="col"><button type="submit" class="btn btn-block btn-primary">upload</button></div>
@@ -64,7 +79,7 @@
                 <div class="card-text" style="margin-bottom: 5px;">
                     
                     <!-- video name -->
-                    <h4>{{ video.name }}</h4> 
+                    <h4><a href="{% url 'app:watch' video.id %}">{{ video.name|upper }}</a></h4> 
                     
                     <!-- video theme (tag) -->
                     <a class="badge badge-primary badge-primary ml-6" href="{% url 'app:theme' video.theme.id %}">{{ video.theme.name }}</a>
@@ -75,8 +90,8 @@
 
                     <!-- thumbs up and down buttons -->
                     <div class="btn-group">
-                        <a href="{% url 'app:thumbUp' video.id %}" class="btn btn-sm btn-outline-success" title="Thumb up this video?"><fa class="fa fa-thumbs-up"></fa> {{ video.thumbs_up }}</a>
-                        <a href="{% url 'app:thumbDown' video.id %}" class="btn btn-sm btn-outline-danger" title="Thumb Down this video?"><fa class="fa fa-thumbs-down"></fa> {{ video.thumbs_down }}</a>
+                        <a href="{% url 'app:thumbUp' video.id %}" class="btn btn-sm btn-outline-success disabled" title="Thumb up this video?"><fa class="fa fa-thumbs-up"></fa> {{ video.thumbs_up }}</a>
+                        <a href="{% url 'app:thumbDown' video.id %}" class="btn btn-sm btn-outline-danger disabled" title="Thumb Down this video?"><fa class="fa fa-thumbs-down"></fa> {{ video.thumbs_down }}</a>
                     </div>
 
                     <!-- uploaded at -->
