@@ -1,4 +1,4 @@
-<h1>Instalation</h3>
+<h1>Installation</h3>
 
 <p>First, make a virtualenv and acticate it.</p>
 
