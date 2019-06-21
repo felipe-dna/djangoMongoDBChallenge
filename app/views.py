@@ -23,6 +23,7 @@ class HomeView(ListView):
     template_name = 'app/home.html'
     queryset = Video.objects.all().order_by('-uploaded_at')
     context_object_name = 'videos'
+    paginate_by = 6
 
     # Adding an form instance to context.
     def get_context_data(self: object, **kwargs) -> object:
