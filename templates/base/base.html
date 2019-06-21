@@ -28,35 +28,8 @@
             {% endfor %}
         </section>
         {% endif %}
-        <section class="jumbotron text-center">
-            <div class="container">
-                <h1 class="jumbotron-heading">New Video</h1><br>
 
-                <!-- Form -->
-                <form method="post" action="{% url 'app:upload' %}" class="needs-validation" enctype="multipart/form-data" >
-                    {% csrf_token %}
-                    <div class="form-row">
-                        <div class="col">
-                            {% render_field form.name class="form-control" placeholder="Enter the video title" required="True" %}
-                        </div>
-                        <div class="col custom-file">
-                            {% render_field form.file class="custom-file-input" accept="video/*" required="True" %}
-                            <label id="label_file" for="id_file" class="custom-file-label">Choose File...</label>
-                            <div class="invalid-feedback">Ivalida feedback</div>
-                            {% if form.errors.file %}
-                                {% for error in form.errors.file %}
-                                <div class="invalid-feedback">{{ error }}</div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="col">
-                            {% render_field form.theme class="form-control" required="True" %}
-                        </div>
-                        <div class="col"><button type="submit" class="btn btn-block btn-primary">upload</button></div>
-                    </div>
-                </form>
-            </div>
-        </section>
+        {% block jumbotron %}{% endblock jumbotron %}
 
         <div class="album py-5 bg-light">
             <div class="container">

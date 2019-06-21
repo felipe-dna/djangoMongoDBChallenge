@@ -5,7 +5,7 @@ from.models import Video, Theme
 # forms
 
 
-class VideoCreateForm(forms.ModelForm):
+class VideoUploadForm(forms.ModelForm):
 
     class Meta:
         model = Video

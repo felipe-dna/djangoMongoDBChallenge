@@ -1,8 +1,52 @@
 {% extends '../base/base.html' %}
+{% load widget_tweaks %}
 
 {% comment %} Page title {% endcomment %}
 {% block title %}Home{% endblock title %}
 
+<!--Form -->
+{% block jumbotron %}
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">New video</h1><br>
+
+        <!-- Form -->
+        <form method="post" action="{% url 'app:upload' %}" class="needs-validation" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="form-row">
+                
+                <!-- video file -->
+                <div class="col custom-file">
+                    {% render_field form.file class="custom-file-input" accept="video/*" required="True" %}
+                    <label id="label_file" for="id_file" class="custom-file-label">Choose File...</label>
+                    <div class="invalid-feedback">{{ error }}</div>
+
+                    {% comment %} video file errors {% endcomment %}
+                    {% if form.errors.file %}
+                        {% for error in form.errors.file %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <!-- video name -->
+                <div class="col">
+                    {% render_field form.name class="form-control" placeholder="Enter the video title" required="True" %}
+                </div>
+
+                <!-- video theme-->
+                <div class="col">
+                    {% render_field form.theme class="form-control" required="True" %}
+                </div>
+
+                <div class="col"><button type="submit" class="btn btn-block btn-primary">upload</button></div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock jumbotron %}
+
+{% comment %} Video List {% endcomment %}
 {% block content %}
 <div class="row">
 {% for video in videos %}
@@ -37,5 +81,4 @@
 <div class="col-md-12 alert alert-warning">No videos avaliable.</div>
 {% endfor %}
 </div>
-
 {% endblock content %}
