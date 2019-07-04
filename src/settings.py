@@ -64,7 +64,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': config('DB_NAME'),
-        'HOST': config('DB_HOST'),
+        'HOST': 'mongodb+srv://{}:{}x@cluster0-gx3t5.mongodb.net/test?retryWrites=true&w=majority'.format(
+            config('DB_USER'), config('DB_PASSWORD')
+        ),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD')
     }
