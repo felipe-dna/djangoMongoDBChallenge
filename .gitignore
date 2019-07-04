@@ -1,7 +1,11 @@
 Pipfile.lock
-.vscode
-media
 .env
-venv/
 requirements.txt
-__pycache__
+
+.vscode/
+
+venv/
+media/
+
+src/__pycache__/
+app/__pycache__/
