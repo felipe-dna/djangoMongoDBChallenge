@@ -2,10 +2,24 @@
 
 <p>First, make a virtualenv and acticate it.</p>
 
+```
+$ virtualenv --python='/usr/bin/python3.7' venv
+$ source venv/bin/activate
+```
+
 <p>Now we will install the dependencies.</p>
 
 ```
 $ pip install -r requirements.txt
+```
+
+<p>Create a .env file and put the follow values:</p>
+
+```
+DB_NAME=<your-db-name>
+DB_HOST=<your-db-host>
+DB_USER=<your-db-user>
+DB_PASSWORD=<your-db-password>
 ```
 
 <p>Now make sure your mongo is working. If all works well, this is the next step:</p>
