@@ -1,6 +1,6 @@
-Pipfile
 Pipfile.lock
 .vscode
 media
 .env
 venv/
+requirements.txt

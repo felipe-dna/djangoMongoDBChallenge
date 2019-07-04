@@ -3,9 +3,11 @@ from decouple import config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'or7^(-5x-jvgh-9w&+xkpa5g&e+ed=150hr6o!^=lw205f6!*d'
+# set this value in .env file.
+SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = True
+# change to True to run in development envyroment.
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
