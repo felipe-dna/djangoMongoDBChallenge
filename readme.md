@@ -1,3 +1,7 @@
+<h1>Available here</h1>
+- https://thumbsupcounter.herokuapp.com/
+
+
 <h1>Installation</h3>
 
 <p>First, make a virtualenv and acticate it.</p>
