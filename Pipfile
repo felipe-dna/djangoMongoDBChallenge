@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 dataclasses = "==0.6"
-django = "==2.2.3"
+django = "==2.2.18"
 django-widget-tweaks = "==1.4.5"
 djongo = "==1.2.33"
 dnspython = "==1.16.0"
